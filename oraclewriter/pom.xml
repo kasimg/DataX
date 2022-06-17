@@ -46,6 +46,11 @@
             <systemPath>${basedir}/src/main/lib/ojdbc6-11.2.0.3.jar</systemPath>
 		</dependency>
 
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

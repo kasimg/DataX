@@ -24,9 +24,10 @@ public final class ConfigParser {
      */
     public static Configuration parse(final String jobPath) {
         Configuration configuration = ConfigParser.parseJobConfig(jobPath);
-
+        String testUrl = "/Users/kasim/IdeaProjects/work/DataX/core/src/main/conf/core.json";
         configuration.merge(
                 ConfigParser.parseCoreConfig(CoreConstant.DATAX_CONF_PATH),
+//                ConfigParser.parseCoreConfig(testUrl),
                 false);
         // todo config优化，只捕获需要的plugin
         String readerPluginName = configuration.getString(
@@ -120,16 +121,21 @@ public final class ConfigParser {
 
         Set<String> replicaCheckPluginSet = new HashSet<String>();
         int complete = 0;
+        String testReaderPath = "/Users/kasim/IdeaProjects/work/DataX/oraclereader/target/datax/plugin/reader";
+        // CoreConstant.DATAX_PLUGIN_READER_HOME
         for (final String each : ConfigParser
                 .getDirAsList(CoreConstant.DATAX_PLUGIN_READER_HOME)) {
+//                .getDirAsList(testReaderPath)) {
             Configuration eachReaderConfig = ConfigParser.parseOnePluginConfig(each, "reader", replicaCheckPluginSet, wantPluginNames);
             if(eachReaderConfig!=null) {
                 configuration.merge(eachReaderConfig, true);
                 complete += 1;
             }
         }
-
+        String testWriterPath = "/Users/kasim/IdeaProjects/work/DataX/oraclewriter/target/datax/plugin/writer";
+        // CoreConstant.DATAX_PLUGIN_WRITER_HOME)
         for (final String each : ConfigParser
+//                .getDirAsList(testWriterPath)) {
                 .getDirAsList(CoreConstant.DATAX_PLUGIN_WRITER_HOME)) {
             Configuration eachWriterConfig = ConfigParser.parseOnePluginConfig(each, "writer", replicaCheckPluginSet, wantPluginNames);
             if(eachWriterConfig!=null) {
